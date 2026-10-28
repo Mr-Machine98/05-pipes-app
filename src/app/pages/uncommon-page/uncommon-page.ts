@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { Card } from '../../components/card/card';
 import { AsyncPipe, I18nPluralPipe, I18nSelectPipe, JsonPipe, KeyValuePipe, SlicePipe, TitleCasePipe, UpperCasePipe } from '@angular/common';
+import { interval, map, tap } from 'rxjs';
 
 const client1 = {
   name: 'Juan',
@@ -77,5 +78,11 @@ export default class UncommonPage {
       console.log('Promise is finished');
     }, 3500);
   });
+
+  // Async pipe - observer
+  myObservableRimer = interval(2000).pipe(
+    map(v => v+1),
+    tap(value => console.log("tap:", value))
+  );
 
 }
